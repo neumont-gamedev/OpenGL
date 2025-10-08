@@ -63,6 +63,38 @@ namespace neu::math {
 		return (v < 0) ? (T)-1 : (v > 0) ? (T)1 : (T)0;
 	}
 
+	//inline float Remap(float min1, float max1, float min2, float max2, float v) {
+	//	float t = (v - min1) / (max1 - min1);
+	//	return std::lerp(min2, max2, t);
+	//}
+
+	/// <summary>
+	/// Remaps a value from one range to another.
+	/// <summary>
+	/// @tparam T Floating-point type (float or double)
+	/// @param min1 Minimum value of the source range
+	/// @param max1 Maximum value of the source range
+	/// @param min2 Minimum value of the target range
+	/// @param max2 Maximum value of the target range
+	/// @param v Value to remap from source range [min1, max1]
+	/// @return Remapped value in target range [min2, max2]
+	/// 
+	/// @note Values outside [min1, max1] will extrapolate beyond [min2, max2]
+	/// 
+	/// Example:
+	///   Remap(0.0f, 10.0f, 0.0f, 100.0f, 5.0f) returns 50.0f
+	///   Remap(0.0f, 10.0f, 0.0f, 100.0f, 15.0f) returns 150.0f (extrapolated)
+	template<std::floating_point T>
+	inline T Remap(T min1, T max1, T min2, T max2, T v) {
+		ASSERT_MSG(max1 != min1, "Source range cannot be zero");
+
+		// Normalize v to [0, 1] within the source range
+		T t = (v - min1) / (max1 - min1);
+
+		// Linearly interpolate to the target range
+		return std::lerp(min2, max2, t);
+	}
+
 	using std::min;
 	using std::max;
 	using std::clamp;
