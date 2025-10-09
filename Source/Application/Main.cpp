@@ -14,20 +14,31 @@ int main(int argc, char* argv[]) {
     std::vector<neu::vec3> points{ { -0.5f, -0.5f, 0 }, { 0, 0.5f, 0 }, { 0.5f, -0.5f, 0 } };
     std::vector<neu::vec3> colors{ { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };
 
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
+    GLuint vbo[2];
+    glGenBuffers(2, vbo);
 
     // vertex buffer (position)
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
     glBufferData(GL_ARRAY_BUFFER, sizeof(neu::vec3) * points.size(), points.data(), GL_STATIC_DRAW);
+
+    // vertex buffer (color)
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(neu::vec3) * colors.size(), colors.data(), GL_STATIC_DRAW);
 
     // vertex array
     GLuint vao;
     glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
 
+    // position
     glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[0]);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+
+    // color
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo[1]);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
     // vertex shader
     std::string vs_source;
@@ -38,6 +49,17 @@ int main(int argc, char* argv[]) {
     vs = glCreateShader(GL_VERTEX_SHADER);
     glShaderSource(vs, 1, &vs_cstr, NULL);
     glCompileShader(vs);
+    int success;
+    glGetShaderiv(vs, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        std::string infoLog(512, '\0');  // pre-allocate space
+        GLsizei length;
+        glGetShaderInfoLog(vs, (GLsizei)infoLog.size(), &length, &infoLog[0]);
+        infoLog.resize(length);
+
+        LOG_WARNING("Shader compilation failed: {}", infoLog);
+    }
 
     // fragment shader
     std::string fs_source;
@@ -48,8 +70,38 @@ int main(int argc, char* argv[]) {
     fs = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fs, 1, &fs_cstr, NULL);
     glCompileShader(fs);
+    glGetShaderiv(fs, GL_COMPILE_STATUS, &success);
+    if (!success)
+    {
+        std::string infoLog(512, '\0');  // pre-allocate space
+        GLsizei length;
+        glGetShaderInfoLog(fs, (GLsizei)infoLog.size(), &length, &infoLog[0]);
+        infoLog.resize(length);
 
+        LOG_WARNING("Shader compilation failed: {}", infoLog);
+    }
 
+    // program
+    GLuint program = glCreateProgram();
+    glAttachShader(program, vs);
+    glAttachShader(program, fs);
+    glLinkProgram(program);
+    glGetProgramiv(program, GL_LINK_STATUS, &success);
+    if (!success)
+    {
+        std::string infoLog(512, '\0');  // pre-allocate space
+        GLsizei length;
+        glGetProgramInfoLog(program, (GLsizei)infoLog.size(), &length, &infoLog[0]);
+        infoLog.resize(length);
+
+        LOG_WARNING("Program link failed: {}", infoLog);
+    }
+
+    glUseProgram(program);
+
+    // uniform
+    GLint uniform = glGetUniformLocation(program, "u_time");
+    ASSERT(uniform != -1);
 
     // MAIN LOOP
     while (!quit) {
@@ -63,6 +115,7 @@ int main(int argc, char* argv[]) {
         neu::GetEngine().Update();
 
         if (neu::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+        glUniform1f(uniform, neu::GetEngine().GetTime().GetTime());
 
         /*
         float angle = neu::GetEngine().GetTime().GetTime() * 90.0f;
@@ -76,7 +129,11 @@ int main(int argc, char* argv[]) {
 
         // draw
         neu::GetEngine().GetRenderer().Clear();
-                
+        
+        glBindVertexArray(vao);
+        glDrawArrays(GL_TRIANGLES, 0, (GLsizei)points.size());
+
+
         /*
         glLoadIdentity();
         glPushMatrix();
