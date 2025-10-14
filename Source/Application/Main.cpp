@@ -11,10 +11,57 @@ int main(int argc, char* argv[]) {
     bool quit = false;
 
     // OPENGL Initialization
-    std::vector<neu::vec3> points{ { -0.5f, -0.5f, 0 }, { 0, 0.5f, 0 }, { 0.5f, -0.5f, 0 } };
-    std::vector<neu::vec3> colors{ { 1, 0, 0 }, { 0, 1, 0 }, { 0, 0, 1 } };
-    std::vector<neu::vec2> texcoord{ { 0, 0 }, { 0.5f, 1.0f }, { 1, 1 } };
+    std::vector<neu::vec3> points{      { -0.5f, -0.5f, 0 }, { 0, 0.5f, 0 }, { 0.5f, -0.5f, 0 } };
+    std::vector<neu::vec3> colors{      { 1, 0, 0 },         { 0, 1, 0 },    { 0, 0, 1 } };
+    std::vector<neu::vec2> texcoord{    { 0, 0 },            { 0.5f, 1.0f }, { 1, 1 } };
 
+    struct Vertex {
+        neu::vec3 position;
+        neu::vec3 color;
+        neu::vec2 texcoord;
+    };
+
+    std::vector<Vertex> vertices{
+        { { -0.5f, -0.5f, 0 }, { 1, 0, 0 }, { 0, 0 } },
+        { { -0.5f,  0.5f, 0 }, { 0, 1, 0 }, { 0, 1 } },
+        { {  0.5f,  0.5f, 0 }, { 0, 0, 1 }, { 1, 1 } },
+        { {  0.5f, -0.5f, 0 }, { 0, 0, 1 }, { 1, 0 } }
+    };
+
+    std::vector<GLuint> indices{ 0, 1, 2, 2, 3, 0 };
+
+    // vertex buffer
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
+
+    // index buffer
+    GLuint ibo;
+    glGenBuffers(1, &ibo);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)* indices.size(), indices.data(), GL_STATIC_DRAW);
+
+    // vertex array
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, position));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, color));
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, texcoord));
+
+
+    /*
     GLuint vbo[3];
     glGenBuffers(3, vbo);
 
@@ -49,6 +96,8 @@ int main(int argc, char* argv[]) {
     glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, vbo[2]);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+    */
+
 
     // vertex shader
     std::string vs_source;
@@ -114,8 +163,6 @@ int main(int argc, char* argv[]) {
 
     // uniform
     GLint uniform = glGetUniformLocation(program, "u_time");
-    ASSERT(uniform != -1);
-
 
     GLint tex_uniform = glGetUniformLocation(program, "u_texture");
     glUniform1i(tex_uniform, 0);
@@ -148,7 +195,8 @@ int main(int argc, char* argv[]) {
         neu::GetEngine().GetRenderer().Clear();
         
         glBindVertexArray(vao);
-        glDrawArrays(GL_TRIANGLES, 0, (GLsizei)points.size());
+        //glDrawArrays(GL_TRIANGLES, 0, (GLsizei)points.size());
+        glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
 
         neu::GetEngine().GetRenderer().Present();
     }

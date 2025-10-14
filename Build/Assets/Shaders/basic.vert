@@ -14,5 +14,5 @@ void main()
 	v_color = a_color;
 	v_texcoord = a_texcoord;
 
-	gl_Position = vec4(a_position * sin(u_time), 1.0);
+	gl_Position = vec4(a_position, 1.0);
 }
