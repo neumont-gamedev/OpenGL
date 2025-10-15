@@ -41,12 +41,11 @@
 #include "Audio/AudioSystem.h"
 
 // renderer
-#include "Renderer/Font.h"
-#include "Renderer/Mesh.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Text.h"
 #include "Renderer/Texture.h"
 #include "Renderer/TextureAnimation.h"
+#include "Renderer/Shader.h" 
+#include "Renderer/Program.h"
 
 // physics
 #include "Physics/Collidable.h"
@@ -54,9 +53,14 @@
 // third-party library
 #include <fmod.hpp>
 #include <fmod_errors.h>
+
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
+
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // standard library
 #include <string>
