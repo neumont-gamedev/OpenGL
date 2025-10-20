@@ -28,37 +28,15 @@ int main(int argc, char* argv[]) {
         { {  0.5f, -0.5f, 0 }, { 0, 0, 1 }, { 1, 0 } }
     };
 
-    std::vector<GLuint> indices{ 0, 1, 2, 2, 3, 0 };
+    std::vector<GLushort> indices{ 0, 1, 2, 2, 3, 0 };
 
     // vertex buffer
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertices.size(), vertices.data(), GL_STATIC_DRAW);
-
-    // index buffer
-    GLuint ibo;
-    glGenBuffers(1, &ibo);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)* indices.size(), indices.data(), GL_STATIC_DRAW);
-
-    // vertex array
-    GLuint vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glEnableVertexAttribArray(2);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, position));
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, color));
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void *)offsetof(Vertex, texcoord));
+    neu::res_t<neu::VertexBuffer> vb = std::make_shared<neu::VertexBuffer>();
+    vb->CreateVertexBuffer((GLsizei)(sizeof(Vertex) * vertices.size()), (GLsizei)vertices.size(), vertices.data());
+    vb->CreateIndexBuffer(GL_UNSIGNED_SHORT, (GLsizei)indices.size(), indices.data());
+    vb->SetAttribute(0, 3, sizeof(Vertex), offsetof(Vertex, position));
+    vb->SetAttribute(1, 3, sizeof(Vertex), offsetof(Vertex, color));
+    vb->SetAttribute(2, 2, sizeof(Vertex), offsetof(Vertex, texcoord));
 
     // shaders
     auto vs = neu::Resources().Get<neu::Shader>("shaders/basic.vert", GL_VERTEX_SHADER);
@@ -114,12 +92,10 @@ int main(int argc, char* argv[]) {
         glm::mat4 view = glm::lookAt(eye, eye + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
         program->SetUniform("u_view", view);
 
-
         // draw
         neu::GetEngine().GetRenderer().Clear();
         
-        glBindVertexArray(vao);
-        glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, 0);
+        vb->Draw(GL_TRIANGLES);
 
         neu::GetEngine().GetRenderer().Present();
     }
