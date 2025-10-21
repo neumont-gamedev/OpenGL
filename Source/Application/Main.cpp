@@ -11,32 +11,9 @@ int main(int argc, char* argv[]) {
     bool quit = false;
 
     // OPENGL Initialization
-    std::vector<glm::vec3> points{      { -0.5f, -0.5f, 0 }, { 0, 0.5f, 0 }, { 0.5f, -0.5f, 0 } };
-    std::vector<glm::vec3> colors{      { 1, 0, 0 },         { 0, 1, 0 },    { 0, 0, 1 } };
-    std::vector<glm::vec2> texcoord{    { 0, 0 },            { 0.5f, 1.0f }, { 1, 1 } };
-
-    struct Vertex {
-        glm::vec3 position;
-        glm::vec3 color;
-        glm::vec2 texcoord;
-    };
-
-    std::vector<Vertex> vertices{
-        { { -0.5f, -0.5f, 0 }, { 1, 0, 0 }, { 0, 0 } },
-        { { -0.5f,  0.5f, 0 }, { 0, 1, 0 }, { 0, 1 } },
-        { {  0.5f,  0.5f, 0 }, { 0, 0, 1 }, { 1, 1 } },
-        { {  0.5f, -0.5f, 0 }, { 0, 0, 1 }, { 1, 0 } }
-    };
-
-    std::vector<GLushort> indices{ 0, 1, 2, 2, 3, 0 };
-
-    // vertex buffer
-    neu::res_t<neu::VertexBuffer> vb = std::make_shared<neu::VertexBuffer>();
-    vb->CreateVertexBuffer((GLsizei)(sizeof(Vertex) * vertices.size()), (GLsizei)vertices.size(), vertices.data());
-    vb->CreateIndexBuffer(GL_UNSIGNED_SHORT, (GLsizei)indices.size(), indices.data());
-    vb->SetAttribute(0, 3, sizeof(Vertex), offsetof(Vertex, position));
-    vb->SetAttribute(1, 3, sizeof(Vertex), offsetof(Vertex, color));
-    vb->SetAttribute(2, 2, sizeof(Vertex), offsetof(Vertex, texcoord));
+    // model
+    auto model3d = std::make_shared<neu::Model>();
+    model3d->Load("models/cube.obj");
 
     // shaders
     auto vs = neu::Resources().Get<neu::Shader>("shaders/basic.vert", GL_VERTEX_SHADER);
@@ -59,6 +36,10 @@ int main(int argc, char* argv[]) {
     float rotation = 0;
     glm::vec3 eye{ 0, 0, 5 };
 
+    neu::Transform transform{ { 0, 0, 0 } };
+    //neu::Transform view{ { 0, 0, 5 } };
+
+
     // projection matrix
     float aspect = neu::GetEngine().GetRenderer().GetWidth() / (float)neu::GetEngine().GetRenderer().GetHeight();
     glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspect, 0.01f, 100.0f);
@@ -80,11 +61,13 @@ int main(int argc, char* argv[]) {
         rotation += neu::GetEngine().GetTime().GetDeltaTime() * 90;
 
         // model matrix
-        glm::mat4 model = glm::mat4(1.0f);
+        /*glm::mat4 model = glm::mat4(1.0f);
         model = glm::translate(model, glm::vec3(1.5f, 0.0f, 0.0f));
         model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 0.0f, 1.0f));
         model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
-        program->SetUniform("u_model", model);
+        program->SetUniform("u_model", model);*/
+        transform.rotation.y += rotation;
+        program->SetUniform("u_model", transform.GetMatrix());
 
         // view matrix
         eye.x += neu::GetEngine().GetInput().GetMouseDelta().x * 0.01f;
@@ -94,9 +77,7 @@ int main(int argc, char* argv[]) {
 
         // draw
         neu::GetEngine().GetRenderer().Clear();
-        
-        vb->Draw(GL_TRIANGLES);
-
+        model3d->Draw(GL_TRIANGLES);
         neu::GetEngine().GetRenderer().Present();
     }
 

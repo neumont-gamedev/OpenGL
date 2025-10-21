@@ -49,7 +49,7 @@ namespace neu {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
 	}
 
-	void VertexBuffer::SetAttribute(GLuint index, GLint size, GLsizei stride, GLuint offset) {
+	void VertexBuffer::SetAttribute(GLuint index, GLint size, GLsizei stride, size_t offset) {
 		glEnableVertexAttribArray(index);
 		glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, stride, (void*)offset);
 	}
