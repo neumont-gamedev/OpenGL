@@ -5,7 +5,7 @@ layout (location = 1) in vec2 a_texcoord;
 layout (location = 2) in vec3 a_normal;
 
 out vec2 v_texcoord;
-flat out vec3 v_color;
+out vec3 v_color;
 
 uniform mat4 u_model;
 uniform mat4 u_view;
@@ -27,8 +27,13 @@ vec3 calculateLight(in vec3 position, in vec3 normal)
 	vec3 diffuse = u_light.color * intensity;
 
 	// specular
+	vec3 reflection = reflect(-light_dir, normal);
+	vec3 view_dir = normalize(-position);
+	intensity = max(dot(reflection, view_dir), 0);
+	intensity = pow(intensity, 128);
+	vec3 specular = vec3(intensity);
 
-	return u_ambient_light + diffuse;
+	return u_ambient_light + diffuse + specular;
 }
 
 void main()

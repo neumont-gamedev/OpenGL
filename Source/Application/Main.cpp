@@ -15,15 +15,8 @@ int main(int argc, char* argv[]) {
     auto model3d = std::make_shared<neu::Model>();
     model3d->Load("models/spot.obj");
 
-    // shaders
-    auto vs = neu::Resources().Get<neu::Shader>("shaders/basic_lit.vert", GL_VERTEX_SHADER);
-    auto fs = neu::Resources().Get<neu::Shader>("shaders/basic_lit.frag", GL_FRAGMENT_SHADER);
-
     // program
-    auto program = std::make_shared<neu::Program>();
-    program->AttachShader(vs);
-    program->AttachShader(fs);
-    program->Link();
+    auto program = neu::Resources().Get<neu::Program>("shaders/basic_lit.prog");
     program->Use();
 
     // texture
@@ -32,7 +25,7 @@ int main(int argc, char* argv[]) {
 
     // lights
     program->SetUniform("u_ambient_light", glm::vec3{ 0.1f });
-    neu::Transform light{ { 0, 4, 0 } };
+    neu::Transform light{ { 2, 4, 0 } };
 
     // transform
     neu::Transform transform{ { 0, 0, 0 } };
@@ -72,8 +65,8 @@ int main(int argc, char* argv[]) {
         glm::mat4 view = glm::lookAt(camera.position, camera.position + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
         program->SetUniform("u_view", view);
 
-        program->SetUniform("u_light.color", glm::vec3{ 0, 0, 4 });
-        light.position.x = neu::math::sin(neu::GetEngine().GetTime().GetTime() * 5) * 5;
+        program->SetUniform("u_light.color", glm::vec3{ 0.0f, 0.2f, 0.0f });
+        //light.position.x = neu::math::sin(neu::GetEngine().GetTime().GetTime() * 5) * 5;
         program->SetUniform("u_light.position", (glm::vec3)(view * glm::vec4(light.position, 1)));
 
         // draw
