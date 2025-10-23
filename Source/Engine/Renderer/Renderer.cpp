@@ -78,6 +78,10 @@ namespace neu {
         glViewport(0, 0, width, height);
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
+                
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+        glFrontFace(GL_CCW);
 
         return true;
     }

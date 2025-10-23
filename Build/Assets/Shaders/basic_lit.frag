@@ -1,7 +1,7 @@
 #version 460 core
 
 in vec2 v_texcoord;
-flat in vec3 v_color;
+in vec3 v_color;
 
 out vec4 f_color;
 
