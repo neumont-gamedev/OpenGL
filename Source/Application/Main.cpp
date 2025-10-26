@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     model3d->Load("models/spot.obj");
 
     // program
-    auto program = neu::Resources().Get<neu::Program>("shaders/basic_lit.prog");
+    auto program = neu::Resources().Get<neu::Program>("shaders/basic_phong.prog");
     program->Use();
 
     // texture
@@ -65,13 +65,30 @@ int main(int argc, char* argv[]) {
         glm::mat4 view = glm::lookAt(camera.position, camera.position + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
         program->SetUniform("u_view", view);
 
-        program->SetUniform("u_light.color", glm::vec3{ 0.0f, 0.2f, 0.0f });
+        program->SetUniform("u_light.color", glm::vec3{ 0.8f });
         //light.position.x = neu::math::sin(neu::GetEngine().GetTime().GetTime() * 5) * 5;
         program->SetUniform("u_light.position", (glm::vec3)(view * glm::vec4(light.position, 1)));
 
         // draw
         neu::GetEngine().GetRenderer().Clear();
+
+        // start new ImGui frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplSDL3_NewFrame();
+        ImGui::NewFrame();
+
+        // set ImGui
+        ImGui::Begin("Editor");
+        ImGui::Text("Hello World");
+        ImGui::Text("Press 'Esc' to quit.");
+        ImGui::End();
+
         model3d->Draw(GL_TRIANGLES);
+
+        // draw ImGui
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
         neu::GetEngine().GetRenderer().Present();
     }
 
