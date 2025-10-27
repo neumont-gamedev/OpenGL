@@ -14,6 +14,9 @@
     <Filter Include="Assets\Textures">
       <UniqueIdentifier>{af623c71-f795-43fc-979b-e882a9700bfa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Materials">
+      <UniqueIdentifier>{71a5af59-b909-4f5d-ab37-0fda8b4aeb1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -52,6 +55,9 @@
     </None>
     <None Include="..\..\Build\Assets\Shaders\basic_phong.frag">
       <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\spot.mat">
+      <Filter>Assets\Materials</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
