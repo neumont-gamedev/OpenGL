@@ -256,5 +256,8 @@
     <ClInclude Include="Renderer\Material.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer\GUI.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

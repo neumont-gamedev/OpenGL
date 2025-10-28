@@ -48,7 +48,6 @@ int main(int argc, char* argv[]) {
 
         if (neu::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
 
-        transform.rotation.y += 90 * dt;
         material->program->SetUniform("u_model", transform.GetMatrix());
 
         // view matrix
@@ -77,12 +76,10 @@ int main(int argc, char* argv[]) {
 
         // set ImGui
         ImGui::Begin("Editor");
-        ImGui::DragFloat3("Position", glm::value_ptr(light.position), 0.1f);
         ImGui::ColorEdit3("Color", glm::value_ptr(lightColor));
-        ImGui::DragFloat("Shininess", &material->shininess, 0.1f);
-        ImGui::DragFloat2("tiling", glm::value_ptr(material->tiling), 0.1f);
-        ImGui::DragFloat2("offset", glm::value_ptr(material->offset), 0.1f);
-        ImGui::Text("Press 'Esc' to quit.");
+        //light.UpdateGui();
+        transform.UpdateGui();
+        material->UpdateGui();
         ImGui::End();
 
         material->Bind();
