@@ -5,7 +5,7 @@ in vec3 v_color;
 
 out vec4 f_color;
 
-uniform struct Material
+struct Material
 {
 	sampler2D baseMap;
 	vec3 baseColor;
@@ -13,7 +13,9 @@ uniform struct Material
 	float shininess;
 	vec2 tiling;
 	vec2 offset;
-} u_material;
+};
+
+uniform Material u_material;
 
 void main()
 {

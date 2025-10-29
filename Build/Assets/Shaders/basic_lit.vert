@@ -7,19 +7,13 @@ layout (location = 2) in vec3 a_normal;
 out vec2 v_texcoord;
 out vec3 v_color;
 
-uniform mat4 u_model;
-uniform mat4 u_view;
-uniform mat4 u_projection;
-
-uniform vec3 u_ambient_light;
-
-uniform struct Light
+struct Light
 {
 	vec3 position;
 	vec3 color;
-} u_light;
+};
 
-uniform struct Material
+struct Material
 {
 	sampler2D baseMap;
 	vec3 baseColor;
@@ -27,7 +21,18 @@ uniform struct Material
 	float shininess;
 	vec2 tiling;
 	vec2 offset;
-} u_material;
+};
+
+uniform Light u_light;
+uniform Material u_material;
+
+uniform mat4 u_model;
+uniform mat4 u_view;
+uniform mat4 u_projection;
+
+uniform vec3 u_ambient_light;
+
+
 
 vec3 calculateLight(in vec3 position, in vec3 normal)
 {

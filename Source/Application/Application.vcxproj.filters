@@ -17,6 +17,9 @@
     <Filter Include="Assets\Materials">
       <UniqueIdentifier>{71a5af59-b909-4f5d-ab37-0fda8b4aeb1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Scenes">
+      <UniqueIdentifier>{47f14e35-9c67-47fb-a290-a9cbc4cd9c39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -58,6 +61,9 @@
     </None>
     <None Include="..\..\Build\Assets\Materials\spot.mat">
       <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Scenes\scene01.json">
+      <Filter>Assets\Scenes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

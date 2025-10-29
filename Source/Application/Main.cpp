@@ -10,10 +10,13 @@ int main(int argc, char* argv[]) {
     SDL_Event e;
     bool quit = false;
 
-    // OPENGL Initialization
+    // initialize scene
+    auto scene = std::make_unique<neu::Scene>();
+    scene->Load("scenes/scene01.json");
+
     // model
     auto model3d = std::make_shared<neu::Model>();
-    model3d->Load("models/spot.obj");
+    model3d->Load("models/sphere.obj");
 
     // material
     auto material = neu::Resources().Get<neu::Material>("materials/spot.mat");
@@ -45,8 +48,9 @@ int main(int argc, char* argv[]) {
         // update
         neu::GetEngine().Update();
         float dt = neu::GetEngine().GetTime().GetDeltaTime();
-
         if (neu::GetEngine().GetInput().GetKeyPressed(SDL_SCANCODE_ESCAPE)) quit = true;
+
+        scene->Update(dt);
 
         material->program->SetUniform("u_model", transform.GetMatrix());
 
@@ -84,6 +88,8 @@ int main(int argc, char* argv[]) {
 
         material->Bind();
         model3d->Draw(GL_TRIANGLES);
+
+        scene->Draw(neu::GetEngine().GetRenderer());
 
         // draw ImGui
         ImGui::Render();

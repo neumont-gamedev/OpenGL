@@ -131,6 +131,9 @@
     <ClCompile Include="Renderer\Material.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Components\ModelRenderer.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">
@@ -257,6 +260,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\GUI.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\ModelRenderer.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
