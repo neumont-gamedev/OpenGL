@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/euler_angles.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 namespace neu {
 
@@ -33,6 +34,11 @@ namespace neu {
         operator glm::mat4 () const {
             return GetMatrix();
         }
+
+        glm::vec3 Forward() const { return glm::quat{ glm::radians(rotation) } * glm::vec3{ 0, 0, 1 }; }
+        glm::vec3 Up() const { return glm::quat{ glm::radians(rotation) } * glm::vec3{ 0, 1, 0 }; }
+        glm::vec3 Right() const { return glm::quat{ glm::radians(rotation) } * glm::vec3{ 1, 0, 0 }; }
+
 
         void Read(const serial_data_t& value) override;
         void UpdateGui() override;

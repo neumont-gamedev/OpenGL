@@ -14,6 +14,5 @@ namespace neu {
 	public:
 		res_t<Model> model;
 		res_t<Material> material;
-
 	};
 }

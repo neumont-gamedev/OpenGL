@@ -134,6 +134,12 @@
     <ClCompile Include="Components\ModelRenderer.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Components\LightComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\CameraComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">
@@ -263,6 +269,12 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Components\ModelRenderer.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\LightComponent.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\CameraComponent.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

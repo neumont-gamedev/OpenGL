@@ -14,28 +14,6 @@ int main(int argc, char* argv[]) {
     auto scene = std::make_unique<neu::Scene>();
     scene->Load("scenes/scene01.json");
 
-    // model
-    auto model3d = std::make_shared<neu::Model>();
-    model3d->Load("models/sphere.obj");
-
-    // material
-    auto material = neu::Resources().Get<neu::Material>("materials/spot.mat");
-    material->Bind();
-
-    // lights
-    material->program->SetUniform("u_ambient_light", glm::vec3{ 0.1f });
-    neu::Transform light{ { 2, 4, 0 } };
-    glm::vec3 lightColor{ 1 };
-
-    // transform
-    neu::Transform transform{ { 0, 0, 0 } };
-    neu::Transform camera{ { 0, 0, 3 } };
-
-    // projection matrix
-    float aspect = neu::GetEngine().GetRenderer().GetWidth() / (float)neu::GetEngine().GetRenderer().GetHeight();
-    glm::mat4 projection = glm::perspective(glm::radians(90.0f), aspect, 0.01f, 100.0f);
-    material->program->SetUniform("u_projection", projection);
-
     // MAIN LOOP
     while (!quit) {
         while (SDL_PollEvent(&e)) {
@@ -52,23 +30,14 @@ int main(int argc, char* argv[]) {
 
         scene->Update(dt);
 
-        material->program->SetUniform("u_model", transform.GetMatrix());
-
         // view matrix
-        float speed = 10.0f;
-        if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) camera.position.x -= speed * dt;
-        if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) camera.position.x += speed * dt;
-        if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_Q)) camera.position.y -= speed * dt;
-        if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_E)) camera.position.y += speed * dt;
-        if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_W)) camera.position.z -= speed * dt;
-        if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_S)) camera.position.z += speed * dt;
-
-        glm::mat4 view = glm::lookAt(camera.position, camera.position + glm::vec3{ 0, 0, -1 }, glm::vec3{ 0, 1, 0 });
-        material->program->SetUniform("u_view", view);
-
-        material->program->SetUniform("u_light.color", lightColor);
-        //light.position.x = neu::math::sin(neu::GetEngine().GetTime().GetTime() * 5) * 5;
-        material->program->SetUniform("u_light.position", (glm::vec3)(view * glm::vec4(light.position, 1)));
+        //float speed = 10.0f;
+        //if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_A)) camera.position.x -= speed * dt;
+        //if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_D)) camera.position.x += speed * dt;
+        //if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_Q)) camera.position.y -= speed * dt;
+        //if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_E)) camera.position.y += speed * dt;
+        //if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_W)) camera.position.z -= speed * dt;
+        //if (neu::GetEngine().GetInput().GetKeyDown(SDL_SCANCODE_S)) camera.position.z += speed * dt;
 
         // draw
         neu::GetEngine().GetRenderer().Clear();
@@ -80,14 +49,7 @@ int main(int argc, char* argv[]) {
 
         // set ImGui
         ImGui::Begin("Editor");
-        ImGui::ColorEdit3("Color", glm::value_ptr(lightColor));
-        //light.UpdateGui();
-        transform.UpdateGui();
-        material->UpdateGui();
         ImGui::End();
-
-        material->Bind();
-        model3d->Draw(GL_TRIANGLES);
 
         scene->Draw(neu::GetEngine().GetRenderer());
 
