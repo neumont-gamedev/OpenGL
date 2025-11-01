@@ -13,6 +13,7 @@ int main(int argc, char* argv[]) {
     // initialize scene
     auto scene = std::make_unique<neu::Scene>();
     scene->Load("scenes/scene01.json");
+    scene->Start();
 
     // MAIN LOOP
     while (!quit) {

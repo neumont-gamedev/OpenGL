@@ -223,6 +223,7 @@
     <ClCompile Include="Audio\AudioClip.cpp" />
     <ClCompile Include="Audio\AudioSystem.cpp" />
     <ClCompile Include="Components\CameraComponent.cpp" />
+    <ClCompile Include="Components\FirstPersonController.cpp" />
     <ClCompile Include="Components\LightComponent.cpp" />
     <ClCompile Include="Components\ModelRenderer.cpp" />
     <ClCompile Include="Core\File.cpp" />
@@ -256,6 +257,7 @@
     <ClInclude Include="Audio\AudioClip.h" />
     <ClInclude Include="Audio\AudioSystem.h" />
     <ClInclude Include="Components\CameraComponent.h" />
+    <ClInclude Include="Components\FirstPersonController.h" />
     <ClInclude Include="Components\LightComponent.h" />
     <ClInclude Include="Components\ModelRenderer.h" />
     <ClInclude Include="Components\RendererComponent.h" />
