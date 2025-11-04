@@ -143,6 +143,9 @@
     <ClCompile Include="Components\FirstPersonController.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="GUI\Editor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">
@@ -268,7 +271,7 @@
     <ClInclude Include="Renderer\Material.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer\GUI.h">
+    <ClInclude Include="GUI\GUI.h">
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Components\ModelRenderer.h">
@@ -281,6 +284,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Components\FirstPersonController.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="GUI\Editor.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

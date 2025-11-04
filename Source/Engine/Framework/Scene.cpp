@@ -26,6 +26,7 @@ namespace neu {
     /// </summary>
     /// <param name="dt">The time elapsed since the last update, in seconds.</param>
     void Scene::Update(float dt) {
+        m_dt = dt;
         // PHASE 1: Update all active actors
         // Loop through every actor in the scene container
         for (auto& actor : m_actors) {
@@ -55,6 +56,15 @@ namespace neu {
             });
     }
 
+    void Scene::UpdateGui() {
+        //float fps = 1 / m_dt;
+        //float ms = 1000 * m_dt;
+
+        //ImVec4 color = (fps < 30) ? ImVec4{ 1, 0, 0, 1 } : ImVec4{ 1, 1, 1, 1 };
+        //ImGui::TextColored(color, "%.2f FPS (%.2f)", fps, ms);
+        ImGui::ColorEdit3("Ambient", glm::value_ptr(m_ambientLight));
+    }
+
     /// <summary>
     /// Draws all actors in the scene using the specified renderer.
     /// 
@@ -79,12 +89,14 @@ namespace neu {
     /// <param name="renderer">The renderer used to draw the actors.</param>
     void Scene::Draw(Renderer& renderer) {
         // get light
-        LightComponent* light = nullptr;
+        std::vector<LightComponent*> lights;
         for (auto& actor : m_actors) {
             if (!actor->active) continue;
 
-            light = actor->GetComponent<LightComponent>();
-            if (light && light->active) break;
+            auto light = actor->GetComponent<LightComponent>();
+            if (light && light->active) {
+                lights.push_back(light);
+            }
         }
 
         // get camera
@@ -114,9 +126,15 @@ namespace neu {
         
         for (auto& program : programs) {
             program->Use();
-            program->SetUniform("u_ambient_light", glm::vec3{ 0.2f });
+            program->SetUniform("u_ambient_light", m_ambientLight);
+            program->SetUniform("u_numLights", static_cast<int>(lights.size()));
             camera->SetProgram(*program);
-            if (light) light->SetProgram(*program, "u_light", camera->view);
+
+            // set lights
+            for (int i = 0; i < lights.size(); i++) {
+                std::string lightName = "u_lights[" + std::to_string(i) + "]";
+                lights[i]->SetProgram(*program, lightName, camera->view);
+            }
         }
 
         // Iterate through all actors in the scene
@@ -292,6 +310,7 @@ namespace neu {
         // Load base Object properties first (name, active, etc.)
         // This calls the parent class's Read() implementation
         //Object::Read(value);
+        SERIAL_READ_NAME(value, "ambient_light", m_ambientLight);
 
         // SECTION 1: Process prototype definitions
         // Check if the serialized data contains a "prototypes" section

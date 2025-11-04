@@ -1,0 +1,8 @@
+{
+	"program" : "shaders/basic_lit.prog",
+	"baseMap": "textures/rocks_base.jpg",
+	"baseColor": [1, 1, 1],
+	"shininess" : 128,
+	"tiling" : [ 3, 3 ],
+	"offset" : [ 0, 0 ]	
+}

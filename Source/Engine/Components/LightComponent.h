@@ -1,7 +1,7 @@
 #pragma once
 
 namespace neu {
-	class LightComponent : public Component, GUI
+	class LightComponent : public Component
 	{
 	public:
 		CLASS_PROTOTYPE(LightComponent)
@@ -14,5 +14,7 @@ namespace neu {
 
 	public:
 		glm::vec3 color{ 1, 1, 1 };
+		float intensity{ 1 };
+		float range{ 20 };
 	};
 }

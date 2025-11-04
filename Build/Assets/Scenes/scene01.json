@@ -1,10 +1,10 @@
 {
 	"actors": [
 		{
-			"name": "ball",
+			"name": "spot",
 			"persistent": true,
 			"transform": {
-				"position": [ 0, 0, 0 ],
+				"position": [ 0, -0.2, 0 ],
 				"rotation": [ 0, 180, 0 ],
 				"scale": [ 1, 1, 1 ]
 			},
@@ -20,7 +20,7 @@
 			"name": "camera",
 			"persistent": true,
 			"transform": {
-				"position": [ 0, 0, 5 ],
+				"position": [ 0, 0, 2 ],
 				"rotation": [ 0, 0, 0 ],
 				"scale": [ 1, 1, 1 ]
 			},
@@ -40,6 +40,23 @@
 			"name": "light",
 			"persistent": true,
 			"transform": {
+				"position": [ 0, 10, 0 ],
+				"rotation": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ]
+			},
+			"components": [
+				{
+					"type": "LightComponent",
+					"color": [ 1, 1, 1 ],
+					"intensity": 2,
+					"range": 20
+				}
+			]
+		},
+		{
+			"name": "light",
+			"persistent": true,
+			"transform": {
 				"position": [ 5, 5, 0 ],
 				"rotation": [ 0, 0, 0 ],
 				"scale": [ 1, 1, 1 ]
@@ -47,7 +64,26 @@
 			"components": [
 				{
 					"type": "LightComponent",
-					"color": [ 1, 1, 0 ]
+					"color": [ 0, 0, 1 ],
+					"intensity": 1,
+					"range": 30
+				}
+			]
+		},
+		{
+			"name": "light",
+			"persistent": true,
+			"transform": {
+				"position": [ 0, -5, 0 ],
+				"rotation": [ 0, 0, 0 ],
+				"scale": [ 1, 1, 1 ]
+			},
+			"components": [
+				{
+					"type": "LightComponent",
+					"color": [ 0, 1, 0 ],
+					"intensity": 2,
+					"range": 30
 				}
 			]
 		}

@@ -1,7 +1,7 @@
 #pragma once
 
 namespace neu {
-	class FirstPersonController : public Component, GUI {
+	class FirstPersonController : public Component {
 	public:
 		CLASS_PROTOTYPE(FirstPersonController)
 

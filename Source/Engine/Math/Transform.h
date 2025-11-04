@@ -1,5 +1,4 @@
 ﻿#pragma once
-#include "Renderer/GUI.h"
 #include "Core/Serializable.h"
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
@@ -8,9 +7,9 @@
 
 namespace neu {
 
-    struct Transform : public ISerializable, GUI {
+    struct Transform : public ISerializable, public GUI {
         glm::vec3 position{ 0, 0, 0 };
-        glm::quat rotationq{ glm::identity<glm::quat>()};
+        glm::quat rotationq{ glm::identity<glm::quat>() };
         glm::vec3 scale{ 1, 1, 1 };
 
         Transform() = default;
@@ -22,7 +21,7 @@ namespace neu {
         }
 
         void SetRotation(const glm::vec3& rotation) {
-            rotationq = glm::quat_cast(glm::eulerAngleYXZ(glm::radians(rotation.y), glm::radians(rotation.x), glm::radians(rotation.z)));
+            rotationq = glm::quat(glm::radians(rotation));
         }
 
         void SetRotationQuat(const glm::quat& rotationq) {
@@ -34,12 +33,12 @@ namespace neu {
         }
 
         glm::mat4 GetMatrix() const {
-            return glm::translate(glm::mat4(1.0f), position) * 
-                   glm::toMat4(rotationq) * 
-                   glm::scale(glm::mat4(1.0f), scale);
+            return glm::translate(glm::mat4(1.0f), position) *
+                glm::toMat4(rotationq) *
+                glm::scale(glm::mat4(1.0f), scale);
         }
 
-        operator glm::mat4 () const {
+        operator glm::mat4() const {
             return GetMatrix();
         }
 

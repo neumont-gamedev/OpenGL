@@ -25,4 +25,9 @@ namespace neu {
 
 		material = Resources().Get<Material>(materialName);
 	}
+
+	void ModelRenderer::UpdateGui()	{
+		if (model) ImGui::Text("Model: %s", model->name.c_str());
+		if (material) ImGui::Text("Material: %s", material->name.c_str());
+	}
 }

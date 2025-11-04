@@ -67,16 +67,17 @@ namespace neu {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 6);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
 
-        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-        SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
-        SDL_GL_SetSwapInterval(1);
-
         m_context = SDL_GL_CreateContext(m_window);
         if (m_context == nullptr) {
             LOG_ERROR("SDL_CreateWindow Error: {}", SDL_GetError());
             SDL_Quit();
             return false;
         }
+
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+        SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, 1);
+        SDL_GL_SetSwapInterval(1);
+
         gladLoadGL();
 
         // After SDL and OpenGL context creation:

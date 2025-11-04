@@ -1,13 +1,13 @@
 #pragma once
 #include "Resources/Resource.h"
-#include "GUI.h"
+#include "GUI/GUI.h"
 #include <glm/glm.hpp>
 
 namespace neu {
 	class Program;
 	class Texture;
 
-	class Material : public Resource, GUI {
+	class Material : public Resource, public GUI {
 	public:
 		Material() = default;
 		~Material() = default;
