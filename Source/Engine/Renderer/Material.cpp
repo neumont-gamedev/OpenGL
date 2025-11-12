@@ -34,6 +34,9 @@ namespace neu {
 		SERIAL_READ_NAME(document, "normalMap", textureName);
 		if (!textureName.empty()) normalMap = Resources().Get<Texture>(textureName);
 
+		textureName = "";
+		SERIAL_READ_NAME(document, "cubeMap", textureName);
+		if (!textureName.empty()) cubeMap = Resources().Get<Cubemap>(textureName);
 
 		SERIAL_READ(document, baseColor);
 		SERIAL_READ(document, emissiveColor);
@@ -74,6 +77,13 @@ namespace neu {
 			normalMap->Bind();
 			program->SetUniform("u_normalMap", 3);
 			parameters = (Parameters)((uint32_t)parameters | (uint32_t)Parameters::NormalMap);
+		}
+
+		if (cubeMap) {
+			cubeMap->SetActive(GL_TEXTURE4);
+			cubeMap->Bind();
+			program->SetUniform("u_cubeMap", 4);
+			parameters = (Parameters)((uint32_t)parameters | (uint32_t)Parameters::CubeMap);
 		}
 
 		program->SetUniform("u_material.baseColor", baseColor);

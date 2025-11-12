@@ -244,6 +244,7 @@
     <ClCompile Include="GUI\Editor.cpp" />
     <ClCompile Include="Input\InputSystem.cpp" />
     <ClCompile Include="Math\Transform.cpp" />
+    <ClCompile Include="Renderer\Cubemap.cpp" />
     <ClCompile Include="Renderer\Material.cpp" />
     <ClCompile Include="Renderer\Model.cpp" />
     <ClCompile Include="Renderer\Program.cpp" />
@@ -291,6 +292,7 @@
     <ClInclude Include="Math\Vector3.h" />
     <ClInclude Include="Physics\Collidable.h" />
     <ClInclude Include="GUI\GUI.h" />
+    <ClInclude Include="Renderer\Cubemap.h" />
     <ClInclude Include="Renderer\Material.h" />
     <ClInclude Include="Renderer\Model.h" />
     <ClInclude Include="Renderer\Program.h" />
