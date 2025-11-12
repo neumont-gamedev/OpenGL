@@ -82,6 +82,12 @@ namespace neu {
 		if (m_program) glUseProgram(m_program);
 	}
 
+	void Program::UpdateGui() {
+		for (auto uniformLocation : m_uniformLocations) {
+			ImGui::Text("%s: %d", uniformLocation.first.c_str(), uniformLocation.second);
+		}
+	}
+
 	void Program::SetUniform(const std::string& name, float value) {
 		GLint location = GetUniformLocation(name);
 		if (location != -1) glUniform1f(location, value);

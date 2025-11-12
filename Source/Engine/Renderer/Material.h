@@ -7,16 +7,19 @@ namespace neu {
 	class Program;
 	class Texture;
 
-	class Material : public Resource, public GUI {
+	class Material : public Resource {
 	public:
 		enum class Parameters : uint32_t {
 			None		= 0,
 			BaseMap		= (1 << 0),
 			SpecularMap = (1 << 1),
-			EmissiveMap = (1 << 2)
+			EmissiveMap = (1 << 2),
+			NormalMap	= (1 << 3)
 		};
 
 	public:
+		CLASS_PROTOTYPE(Material)
+
 		Material() = default;
 		~Material() = default;
 
@@ -32,6 +35,7 @@ namespace neu {
 		res_t<Texture> specularMap;
 		res_t<Texture> emissiveMap;
 		glm::vec3 emissiveColor{ 0, 0, 0 };
+		res_t<Texture> normalMap;
 
 		float shininess{ 2 };
 		glm::vec2 tiling{ 1, 1 };

@@ -24,6 +24,12 @@ namespace neu {
 		}
 	}
 
+	void Model::UpdateGui()	{
+		for (auto vertexBuffer : m_vertexBuffers) {
+			vertexBuffer->UpdateGui();
+		}
+	}
+
 	void Model::ProcessNode(aiNode* node, const aiScene* scene)	{
 		// process the current node meshes
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)	{

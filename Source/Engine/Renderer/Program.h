@@ -11,6 +11,8 @@ namespace neu
 	class Program : public Resource
 	{
 	public:
+		CLASS_PROTOTYPE(Program)
+
 		Program();
 		~Program();
 
@@ -19,6 +21,8 @@ namespace neu
 
 		bool Link();
 		void Use();
+
+		void UpdateGui() override;
 
 		// uniforms
 		void SetUniform(const std::string& name, float value);

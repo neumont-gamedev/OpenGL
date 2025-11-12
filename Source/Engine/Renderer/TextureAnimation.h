@@ -11,6 +11,8 @@ namespace neu {
 	/// </summary>
 	class TextureAnimation : public Resource {
 	public:
+		CLASS_PROTOTYPE(TextureAnimation)
+
 		TextureAnimation() = default;
 		~TextureAnimation() = default;
 
@@ -69,6 +71,8 @@ namespace neu {
 		/// </summary>
 		/// <returns>Resource pointer to the Texture</returns>
 		res_t<Texture> GetTexture() { return m_texture; }
+
+		void UpdateGui() override {}
 
 	private:
 		// Number of columns in the sprite sheet grid

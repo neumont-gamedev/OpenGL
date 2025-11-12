@@ -1,4 +1,5 @@
 #pragma once
+#include "Framework/Object.h"
 #include <memory>
 
 namespace neu {
@@ -8,7 +9,7 @@ namespace neu {
     /// cached, and managed by the ResourceManager. All specific resource types
     /// (textures, sounds, models, etc.) should inherit from this class.
     /// </summary>
-    class Resource {
+    class Resource : public Object {
     public:
         /// <summary>
         /// Default constructor for resource objects.

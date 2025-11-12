@@ -8,6 +8,8 @@ namespace neu
 	class VertexBuffer : public Resource
 	{
 	public:
+		CLASS_PROTOTYPE(VertexBuffer)
+
 		VertexBuffer();
 		virtual ~VertexBuffer();
 
@@ -18,6 +20,8 @@ namespace neu
 		void CreateIndexBuffer(GLenum indexType, GLsizei count, GLvoid* data);
 
 		void SetAttribute(GLuint index, GLint size, GLsizei stride, size_t offset);
+
+		void UpdateGui() override;
 
 	protected:
 		// vertex array

@@ -32,12 +32,13 @@ namespace neu {
 
         SDL_FlipSurface(surface, SDL_FLIP_VERTICAL);
 
-
         const SDL_PixelFormatDetails* details = SDL_GetPixelFormatDetails(surface->format);
 
         int channels = details->bytes_per_pixel;
         GLenum internalFormat = (channels == 4) ? GL_RGBA8 : GL_RGB8;
         GLenum format = (channels == 4) ? GL_RGBA : GL_RGB;
+        size.x = (float)surface->w;
+        size.y = (float)surface->h;
 
         glGenTextures(1, &m_texture);
         glBindTexture(m_target, m_texture);
@@ -51,10 +52,48 @@ namespace neu {
         glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-        glActiveTexture(GL_TEXTURE0);
-
         SDL_DestroySurface(surface);
 
         return true;
-    } 
+    }
+
+    void Texture::Bind() {
+        glBindTexture(m_target, m_texture);
+
+        glTexParameteri(m_target, GL_TEXTURE_MIN_FILTER, (filter == Filter::Nearest) ? GL_NEAREST : GL_LINEAR);
+        glTexParameteri(m_target, GL_TEXTURE_MAG_FILTER, (filter == Filter::Nearest) ? GL_NEAREST : GL_LINEAR);
+                
+        switch (wrap) {
+        case neu::Texture::Wrap::Repeat:
+            glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_REPEAT);
+            glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_REPEAT);
+            break;
+        case neu::Texture::Wrap::RepeatMirror:
+            glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+            glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+            break;
+        case neu::Texture::Wrap::ClampEdge:
+            glTexParameteri(m_target, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(m_target, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            break;
+        default:
+            break;
+        }
+    }
+
+    void Texture::UpdateGui() {
+        ImGui::Text("Name: %s", file::GetFilename(name).c_str());
+        ImGui::Text("Size: %dx%d", (int)size.x, (int)size.y);
+
+        ImGui::Text("Filter:");
+        ImGui::SameLine();
+        const char* filters[] = { "Nearest", "Linear" };
+        ImGui::Combo(" ", (int*)&filter, filters, 2);
+
+        ImGui::Text("Wrap:  ");
+        ImGui::SameLine();
+        const char* wraps[] = { "Repeat", "Mirrored Repeat", "Clamp Edge"};
+        ImGui::Combo(" ", (int*)&wrap, wraps, 3);
+    }
+
 }

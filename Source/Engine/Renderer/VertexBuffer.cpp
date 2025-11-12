@@ -53,4 +53,9 @@ namespace neu {
 		glEnableVertexAttribArray(index);
 		glVertexAttribPointer(index, size, GL_FLOAT, GL_FALSE, stride, (void*)offset);
 	}
+
+	void VertexBuffer::UpdateGui() {
+		ImGui::Text("Vertex Count: %d", m_vertexCount);
+		ImGui::Text("Index Count: %d", m_indexCount);
+	}
 }
