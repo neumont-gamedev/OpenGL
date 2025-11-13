@@ -59,6 +59,7 @@
 #include "Components/CameraComponent.h"
 #include "Components/LightComponent.h"
 #include "Components/FirstPersonController.h"
+#include "Components/RotationComponent.h"
 
 // gui / editor
 #include "GUI/GUI.h"

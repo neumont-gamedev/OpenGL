@@ -92,6 +92,8 @@ namespace neu {
 		program->SetUniform("u_material.tiling", tiling);
 		program->SetUniform("u_material.offset", offset);
 		program->SetUniform("u_material.parameters", (uint32_t)parameters);
+
+		program->SetUniform("u_ior", ior);
 	}
 
 	void Material::UpdateGui() {
