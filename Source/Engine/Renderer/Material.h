@@ -19,8 +19,6 @@ namespace neu {
 		};
 
 	public:
-		CLASS_PROTOTYPE(Material)
-
 		Material() = default;
 		~Material() = default;
 

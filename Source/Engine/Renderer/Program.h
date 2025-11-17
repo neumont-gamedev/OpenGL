@@ -11,8 +11,6 @@ namespace neu
 	class Program : public Resource
 	{
 	public:
-		CLASS_PROTOTYPE(Program)
-
 		Program();
 		~Program();
 

@@ -65,6 +65,9 @@ namespace neu {
             requires std::derived_from<T, Resource>
         res_t<T> GetWithID(const std::string& id, const std::string& name, Args&& ... args);
 
+
+
+
         template<typename T = Resource>
             requires std::derived_from<T, Resource>
         std::vector<T*> GetByType();
@@ -156,7 +159,7 @@ namespace neu {
     {
         std::vector<T*> results;
 
-        for (auto resource : m_resources) {
+        for (auto& resource : m_resources) {
             auto result = dynamic_cast<T*>(resource.second.get());
             if (result) {
                 results.push_back(result);

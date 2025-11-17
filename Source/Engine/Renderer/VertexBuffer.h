@@ -8,8 +8,6 @@ namespace neu
 	class VertexBuffer : public Resource
 	{
 	public:
-		CLASS_PROTOTYPE(VertexBuffer)
-
 		VertexBuffer();
 		virtual ~VertexBuffer();
 

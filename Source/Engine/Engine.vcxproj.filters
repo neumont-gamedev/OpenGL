@@ -152,6 +152,9 @@
     <ClCompile Include="Components\RotationComponent.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="..\ThirdParty\imgui\ImGuiFileDialog.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">

@@ -85,16 +85,17 @@ namespace neu {
     void Texture::UpdateGui() {
         ImGui::Text("Name: %s", file::GetFilename(name).c_str());
         ImGui::Text("Size: %dx%d", (int)size.x, (int)size.y);
+        Editor::ShowTexture(*this, 64, 64);
 
-        ImGui::Text("Filter:");
-        ImGui::SameLine();
-        const char* filters[] = { "Nearest", "Linear" };
-        ImGui::Combo(" ", (int*)&filter, filters, 2);
+        //ImGui::Text("Filter:");
+        //ImGui::SameLine();
+        //const char* filters[] = { "Nearest", "Linear" };
+        //ImGui::Combo(" ", (int*)&filter, filters, 2);
 
-        ImGui::Text("Wrap:  ");
-        ImGui::SameLine();
-        const char* wraps[] = { "Repeat", "Mirrored Repeat", "Clamp Edge"};
-        ImGui::Combo(" ", (int*)&wrap, wraps, 3);
+        //ImGui::Text("Wrap:  ");
+        //ImGui::SameLine();
+        //const char* wraps[] = { "Repeat", "Mirrored Repeat", "Clamp Edge"};
+        //ImGui::Combo(" ", (int*)&wrap, wraps, 3);
     }
 
 }

@@ -20,8 +20,6 @@ namespace neu {
 		};
 
 	public:
-		CLASS_PROTOTYPE(Model)
-
 		bool Load(const std::string& filename);
 		void Draw(GLenum primitiveType = GL_TRIANGLES);
 

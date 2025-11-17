@@ -28,8 +28,6 @@ namespace neu {
 		};
 
 	public:
-		CLASS_PROTOTYPE(Texture)
-
 		Texture() = default;
 		~Texture();
 

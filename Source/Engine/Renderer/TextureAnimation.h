@@ -11,8 +11,6 @@ namespace neu {
 	/// </summary>
 	class TextureAnimation : public Resource {
 	public:
-		CLASS_PROTOTYPE(TextureAnimation)
-
 		TextureAnimation() = default;
 		~TextureAnimation() = default;
 
