@@ -47,7 +47,7 @@ namespace neu {
 		/// Gets the dimensions of the texture in pixels.
 		/// </summary>
 		/// <returns>A vec2 containing the width and height of the texture</returns>
-		vec2 GetSize() { return size;  }
+		glm::ivec2 GetSize() { return m_size;  }
 
 		void UpdateGui() override;
 
@@ -62,6 +62,6 @@ namespace neu {
 		Wrap wrap = Wrap::Repeat;
 
 		// The dimensions of the texture in pixels
-		vec2 size{ 0, 0 };
+		glm::ivec2 m_size{ 0, 0 };
 	};
 }
