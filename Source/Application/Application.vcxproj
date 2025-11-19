@@ -208,12 +208,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\Code\111925\postprocess.frag" />
+    <None Include="..\..\..\Code\111925\postprocess.prog" />
+    <None Include="..\..\..\Code\111925\postprocess.vert" />
     <None Include="..\..\Build\Assets\Materials\color_grid.mat" />
     <None Include="..\..\Build\Assets\Materials\crate.mat" />
     <None Include="..\..\Build\Assets\Materials\halloween.mat" />
     <None Include="..\..\Build\Assets\Materials\reflection.mat" />
     <None Include="..\..\Build\Assets\Materials\refraction.mat" />
     <None Include="..\..\Build\Assets\Materials\rocks.mat" />
+    <None Include="..\..\Build\Assets\Materials\rtt.mat" />
     <None Include="..\..\Build\Assets\Materials\skybox.mat" />
     <None Include="..\..\Build\Assets\Materials\spot.mat" />
     <None Include="..\..\Build\Assets\Scenes\scene01.json" />
@@ -233,6 +237,9 @@
     <None Include="..\..\Build\Assets\Shaders\refraction.vert" />
     <None Include="..\..\Build\Assets\Shaders\skybox.prog" />
     <None Include="..\..\Build\Assets\Shaders\skybox.vert" />
+    <None Include="..\..\Build\Assets\Shaders\unlit.frag" />
+    <None Include="..\..\Build\Assets\Shaders\unlit.prog" />
+    <None Include="..\..\Build\Assets\Shaders\unlit.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Build\Assets\Textures\beast.png" />
