@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Renderer/Renderer.h"
+#include "Engine.h"
 
 namespace neu {
     /// <summary>
@@ -57,12 +58,8 @@ namespace neu {
     }
 
     void Scene::UpdateGui() {
-        //float fps = 1 / m_dt;
-        //float ms = 1000 * m_dt;
-
-        //ImVec4 color = (fps < 30) ? ImVec4{ 1, 0, 0, 1 } : ImVec4{ 1, 1, 1, 1 };
-        //ImGui::TextColored(color, "%.2f FPS (%.2f)", fps, ms);
         ImGui::ColorEdit3("Ambient", glm::value_ptr(m_ambientLight));
+        ImGui::Checkbox("Post Process", &m_postprocess);
     }
 
     /// <summary>
@@ -112,16 +109,31 @@ namespace neu {
         std::vector<Program*> programs(programSet.begin(), programSet.end());
         
         for (auto& camera : cameras) {
-            if (camera->outputTexture) {
+            PostProcessComponent* postprocessComponent = camera->owner->GetComponent<PostProcessComponent>();
+            bool renderToTexture = camera->outputTexture && (!postprocessComponent || (postprocessComponent && m_postprocess));
+
+            if (renderToTexture) {
                 camera->outputTexture->BindFramebuffer();
                 glViewport(0, 0, camera->outputTexture->m_size.x, camera->outputTexture->m_size.y);
             }
             camera->Clear();
             DrawPass(renderer, programs, lights, camera);
-            if (camera->outputTexture) {
+            if (renderToTexture) {
                 camera->outputTexture->UnbindFramebuffer();
                 glViewport(0, 0, renderer.GetWidth(), renderer.GetHeight());
             }
+
+            if (renderToTexture && postprocessComponent) {
+                camera->Clear(); // <-- add
+
+                auto postProcessProgram = Resources().Get<Program>("shaders/postprocess.prog");
+                postProcessProgram->Use();
+                postprocessComponent->Apply(*postProcessProgram);
+                camera->outputTexture->Bind();
+                auto actor = GetActorByName("postprocess");
+                actor->Draw(renderer);
+            }
+
         }
     }
 
@@ -314,6 +326,7 @@ namespace neu {
         // This calls the parent class's Read() implementation
         //Object::Read(value);
         SERIAL_READ_NAME(value, "ambient_light", m_ambientLight);
+        SERIAL_READ_NAME(value, "post_process", m_postprocess);
 
         // SECTION 1: Process prototype definitions
         // Check if the serialized data contains a "prototypes" section

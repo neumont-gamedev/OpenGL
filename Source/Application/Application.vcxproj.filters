@@ -110,15 +110,6 @@
     <None Include="..\..\Build\Assets\Materials\refraction.mat">
       <Filter>Assets\Materials</Filter>
     </None>
-    <None Include="..\..\..\Code\111925\postprocess.prog">
-      <Filter>Assets\Shaders</Filter>
-    </None>
-    <None Include="..\..\..\Code\111925\postprocess.vert">
-      <Filter>Assets\Shaders</Filter>
-    </None>
-    <None Include="..\..\..\Code\111925\postprocess.frag">
-      <Filter>Assets\Shaders</Filter>
-    </None>
     <None Include="..\..\Build\Assets\Shaders\unlit.prog">
       <Filter>Assets\Shaders</Filter>
     </None>
@@ -129,6 +120,18 @@
       <Filter>Assets\Shaders</Filter>
     </None>
     <None Include="..\..\Build\Assets\Materials\rtt.mat">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\postprocess.frag">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\postprocess.vert">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\postprocess.prog">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\postprocess.mat">
       <Filter>Assets\Materials</Filter>
     </None>
   </ItemGroup>

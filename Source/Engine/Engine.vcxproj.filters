@@ -158,6 +158,9 @@
     <ClCompile Include="Renderer\RenderTexture.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Components\PostProcessComponent.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Random.h">
@@ -308,6 +311,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Renderer\RenderTexture.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\PostProcessComponent.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>
