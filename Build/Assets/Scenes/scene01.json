@@ -1,6 +1,6 @@
 {
 	"ambient_light": [ 1, 1, 1 ],
-	"post_process": false,
+	"post_process": true,
 	"actors": [
 		{
 			"name": "skybox",
