@@ -134,6 +134,9 @@
     <None Include="..\..\Build\Assets\Materials\postprocess.mat">
       <Filter>Assets\Materials</Filter>
     </None>
+    <None Include="..\..\Build\Assets\Scenes\scene03.json">
+      <Filter>Assets\Scenes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\Build\Assets\Textures\beast.png">

@@ -220,6 +220,7 @@
     <None Include="..\..\Build\Assets\Materials\spot.mat" />
     <None Include="..\..\Build\Assets\Scenes\scene01.json" />
     <None Include="..\..\Build\Assets\Scenes\scene02.json" />
+    <None Include="..\..\Build\Assets\Scenes\scene03.json" />
     <None Include="..\..\Build\Assets\Shaders\basic.frag" />
     <None Include="..\..\Build\Assets\Shaders\basic.vert" />
     <None Include="..\..\Build\Assets\Shaders\lit_vertex.frag" />
