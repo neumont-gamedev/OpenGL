@@ -113,9 +113,6 @@
     <None Include="..\..\Build\Assets\Shaders\unlit.prog">
       <Filter>Assets\Shaders</Filter>
     </None>
-    <None Include="..\..\Build\Assets\Shaders\unlit.vert">
-      <Filter>Assets\Shaders</Filter>
-    </None>
     <None Include="..\..\Build\Assets\Shaders\unlit.frag">
       <Filter>Assets\Shaders</Filter>
     </None>
@@ -136,6 +133,30 @@
     </None>
     <None Include="..\..\Build\Assets\Scenes\scene03.json">
       <Filter>Assets\Scenes</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\depth.prog">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\depth.frag">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\depth.vert">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Materials\shadow.mat">
+      <Filter>Assets\Materials</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\unlit.vert">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_shadow.prog">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_shadow.frag">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_shadow.vert">
+      <Filter>Assets\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

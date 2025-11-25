@@ -16,7 +16,14 @@
 					"lightType": "directional",
 					"color": [ 1, 1, 1 ],
 					"intensity": 1,
-					"range": 40
+					"range": 40,
+					"shadowCaster": true
+				},
+				{
+					"type": "CameraComponent",
+					"projectionType": "orthographic",
+					"shadowCamera": true,
+					"outputTexture": "shadowTexture"
 				}
 			]
 		},
@@ -68,7 +75,7 @@
 				{
 					"type": "ModelRenderer",
 					"model": "models/quad.obj",
-					"material": "materials/rtt.mat"
+					"material": "materials/shadow.mat"
 				}
 			]
 		},

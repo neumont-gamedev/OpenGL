@@ -216,6 +216,7 @@
     <None Include="..\..\Build\Assets\Materials\refraction.mat" />
     <None Include="..\..\Build\Assets\Materials\rocks.mat" />
     <None Include="..\..\Build\Assets\Materials\rtt.mat" />
+    <None Include="..\..\Build\Assets\Materials\shadow.mat" />
     <None Include="..\..\Build\Assets\Materials\skybox.mat" />
     <None Include="..\..\Build\Assets\Materials\spot.mat" />
     <None Include="..\..\Build\Assets\Scenes\scene01.json" />
@@ -223,6 +224,12 @@
     <None Include="..\..\Build\Assets\Scenes\scene03.json" />
     <None Include="..\..\Build\Assets\Shaders\basic.frag" />
     <None Include="..\..\Build\Assets\Shaders\basic.vert" />
+    <None Include="..\..\Build\Assets\Shaders\depth.frag" />
+    <None Include="..\..\Build\Assets\Shaders\depth.prog" />
+    <None Include="..\..\Build\Assets\Shaders\depth.vert" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_shadow.frag" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_shadow.prog" />
+    <None Include="..\..\Build\Assets\Shaders\lit_phong_shadow.vert" />
     <None Include="..\..\Build\Assets\Shaders\lit_vertex.frag" />
     <None Include="..\..\Build\Assets\Shaders\lit_vertex.prog" />
     <None Include="..\..\Build\Assets\Shaders\lit_vertex.vert" />
